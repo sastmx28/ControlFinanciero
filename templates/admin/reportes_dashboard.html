@@ -1,0 +1,11 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Reportes disponibles</h1>
+<ul style="font-size: 16px;">
+  <li><a href="{% url 'reporte_estado_cuenta' %}">📄 Estado de cuenta por cliente</a></li>
+  <li><a href="{% url 'reporte_comisiones' %}">📊 Comisiones por comisionista</a></li>
+  <li><a href="{% url 'reporte_depositos' %}">💰 Desglose de depósitos</a></li>
+</ul>
+{% endblock %}

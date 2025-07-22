@@ -1,0 +1,50 @@
+<h2>Reporte de depósitos con desglose por cliente</h2>
+<form method="get">
+  <label>Comisionado:</label>
+  <select name="comisionado" onchange="this.form.submit()">
+    <option value="">-- Todos --</option>
+    {% for com in comisionados %}
+      <option value="{{ com.id }}" {% if request.GET.comisionado == com.id|stringformat:"s" %}selected{% endif %}>{{ com.nombre }}</option>
+    {% endfor %}
+  </select>
+</form>
+
+<form method="get">
+  <label>Cliente:</label>
+  <select name="cliente" onchange="this.form.submit()">
+    <option value="">-- Selecciona --</option>
+    {% for c in clientes %}
+      <option value="{{ c.id }}" {% if cliente and c.id == cliente.id %}selected{% endif %}>{{ c.nombre }}</option>
+    {% endfor %}
+  </select>
+</form>
+
+{% if cliente %}
+  <hr>
+  <table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+      <th>Fecha</th>
+      <th>Monto</th>
+      <th>Comisiones</th>
+      <th>Monto Neto</th>
+      <th>Total Retirado</th>
+      <th>Saldo</th>
+    </tr>
+    {% for d in depositos %}
+      <tr>
+        <td>{{ d.fecha }}</td>
+        <td>${{ d.monto }}</td>
+        <td>
+          <ul>
+            {% for c in d.comisiones %}
+              <li>{{ c.comisionista.nombre }} ({{ c.porcentaje }}%) = ${{ c.monto }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+        <td>${{ d.monto_neto }}</td>
+        <td>${{ d.total_retirado }}</td>
+        <td><strong>${{ d.saldo }}</strong></td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endif %}

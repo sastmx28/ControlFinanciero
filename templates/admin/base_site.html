@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}Control Financiero{% endblock %}
+
+{% block branding %}
+  <h1 id="site-name"><a href="{% url 'admin:index' %}">Control Financiero</a></h1>
+{% endblock %}
+
+{% block extrahead %}
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+{% endblock %}

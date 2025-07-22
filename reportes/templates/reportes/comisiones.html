@@ -1,0 +1,37 @@
+<h2>Reporte de comisiones por comisionista</h2>
+<form method="get">
+  <label>Comisionado:</label>
+  <select name="comisionado" onchange="this.form.submit()">
+    <option value="">-- Todos --</option>
+    {% for com in comisionados %}
+      <option value="{{ com.id }}" {% if request.GET.comisionado == com.id|stringformat:"s" %}selected{% endif %}>{{ com.nombre }}</option>
+    {% endfor %}
+  </select>
+</form>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Fecha Depósito</th>
+      <th>Comisionista</th>
+      <th>Cliente</th>
+      <th>Empresa</th>
+      <th>Banco</th>
+      <th>Porcentaje</th>
+      <th>Monto Comisión</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in comisiones %}
+      <tr>
+        <td>{{ c.deposito.fecha }}</td>
+        <td>{{ c.comisionista.nombre }}</td>
+        <td>{{ c.deposito.cliente.nombre }}</td>
+        <td>{{ c.deposito.empresa.nombre }}</td>
+        <td>{{ c.deposito.banco.nombre }}</td>
+        <td>{{ c.porcentaje }}%</td>
+        <td>${{ c.monto }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
